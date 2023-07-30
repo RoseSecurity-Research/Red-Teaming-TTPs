@@ -8,7 +8,7 @@
 
 Welcome to RoseSecurity!
 
-We are thrilled to have you join our community of passionate individuals dedicated to advancing cybersecurity through open-source research and Tactical Techniques and Procedures (TTPs). At RoseSecurity, we believe that collaboration and knowledge sharing are essential in fortifying our organization's security posture and making the digital world a safer place for all. Here are some tips and tricks that should help you get started with making your first PR request!
+We are thrilled to have you join our community of passionate individuals dedicated to advancing cybersecurity through open-source research. At RoseSecurity, we believe that collaboration and knowledge sharing are essential in fortifying your organization's security posture and making the digital world a safer place for all. Here are some tips and tricks that should help you get started with making your first PR request!
 
 ## Getting Started:
 
